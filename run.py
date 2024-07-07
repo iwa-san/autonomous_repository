@@ -122,14 +122,13 @@ try:
             message += name + ":" + "{:>4}".format(round(ultrasonics[name].dis))+ ", "
             ##"{:>4}".format(value)：測定値を4文字幅で右詰めに整形。
 	        ##round(ultrasonics[name].dis)：測定値を丸める。
-
             ##最終的にこんな形
             ##[RrLH:__ , FrLH:__ , Fr:__ , FrRH:__ , RrRH:__]
 
             # サンプリングレートを調整する場合は下記をコメントアウト外す
             #time.sleep(sampling_cycle)
 
-        # 判断（プランニング）＃
+        # 判断（プランニング）##configの10行目から参照
         # 使う超音波センサをconfig.pyのultrasonics_listで設定必要
         ## ただ真っすぐに走る 
         if config.mode_plan == "GoStraight":

@@ -23,6 +23,26 @@ print_plan_result = False
 plotter = False
 
 # モーター出力パラメータ （デューティー比：-100~100で設定）
+##sim上で周回できたパラメータ################################
+    # # モーター出力パラメータ （デューティー比：-100~100で設定）
+    # # アクセル用
+    # FORWARD_S = 100#80
+    # FORWARD_C = 53#60
+    # STOP = 0
+    # REVERSE = -60
+    # # 操舵用
+    # LEFT = 100 #<=100
+    # NUTRAL = 0
+    # RIGHT = -100 #<=100
+
+    # # 超音波センサの検知パラメータ
+    # ## 距離関連、単位はmm
+    # ### 前壁の検知距離
+    # DETECTION_DISTANCE_STOP = 30#60,30で回れた
+    # DETECTION_DISTANCE_Fr = 150
+    # ### 右左折判定基準
+    # DETECTION_DISTANCE_RL = 60
+########################################################
 # スロットル用
 FORWARD_S = 80 #ストレートでの値, joy_accel1
 FORWARD_C = 60 #カーブでのの値, joy_accel2
