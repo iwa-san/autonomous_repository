@@ -43,7 +43,7 @@ if config.fpv:
    #fpv.run(host='localhost', port=config.port, debug=False, threaded=True)
 
 # データ記録用配列作成
-d = np.zeros(config.N_ultrasonics)
+d = np.zeros(config.N_ultrasonics)##numpyのメソッドで配列を初期化
 d_stack = np.zeros(config.N_ultrasonics+3)
 recording = True
 
@@ -58,18 +58,18 @@ if config.HAVE_CAMERA and not config.fpv:
 
 # 操舵、駆動モーターの初期化
 motor = motor.Motor()
-motor.set_throttle_pwm_duty(config.STOP)
+motor.set_throttle_pwm_duty(config.STOP)##configから値参照
 motor.set_steer_pwm_duty(config.NUTRAL)
 
 # 超音波センサの初期化
 ## 別々にインスタンス化する例　ultrasonic_RrLH = ultrasonic.Ultrasonic("RrLH")
 ## 一気にnameに"RrLH"等をultrasonics_listから入れてインスタンス化
-ultrasonics = {name: ultrasonic.Ultrasonic(name=name) for name in config.ultrasonics_list}
+ultrasonics = {name: ultrasonic.Ultrasonic(name=name) for name in config.ultrasonics_list}##ultrasonics_list = ["RrLH", "FrLH", "Fr", "FrRH","RrRH"]
 print(" 下記の超音波センサを利用")
 print(" ", config.ultrasonics_list)
 
 # 操作判断プランナーの初期化
-plan = planner.Planner(config.mode_plan)
+plan = planner.Planner(config.mode_plan)##initでconfig内の各定数(検知距離設定　他)を反映
 
 # NNモデルの読み込み
 if config.HAVE_NN:
@@ -116,10 +116,16 @@ try:
         ## RrRHセンサ距離計測例：dis_RrRH = ultrasonic_RrRH.()
         ## 下記では一気に取得
         message = ""
-        for i, name in enumerate(config.ultrasonics_list):
-            d[i] = ultrasonics[name].measure()
+        for i, name in enumerate(config.ultrasonics_list):##config.ultrasonics_list:距離センサーの名前のリスト
+            d[i] = ultrasonics[name].measure()##リスト"d"の指定した位置に、センサー名を指定して測定メソッドの結果を格納
             #message += name + ":" + str(round(ultrasonics[name].dis,2)).rjust(7, ' ') #Thony表示用にprint変更
             message += name + ":" + "{:>4}".format(round(ultrasonics[name].dis))+ ", "
+            ##"{:>4}".format(value)：測定値を4文字幅で右詰めに整形。
+	        ##round(ultrasonics[name].dis)：測定値を丸める。
+
+            ##最終的にこんな形
+            ##[RrLH:__ , FrLH:__ , Fr:__ , FrRH:__ , RrRH:__]
+
             # サンプリングレートを調整する場合は下記をコメントアウト外す
             #time.sleep(sampling_cycle)
 
